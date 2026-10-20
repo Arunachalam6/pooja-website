@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Ayudha Pooja & Vijaya Dasami</title>
+    <style>
+      :root {
+        --gold: #ffcf5a;
+        --gold2: #ff9d2e;
+        --deep: #1a0508;
+        --maroon: #4a0d14;
+        --rose: #d6336c;
+        --cream: #fff4d6;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Georgia", "Times New Roman", serif;
+        color: var(--cream);
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          #7a1a24 0%,
+          var(--maroon) 35%,
+          var(--deep) 100%
+        );
+        background-attachment: fixed;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      /* twinkling stars */
+      .stars {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .stars i {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #ffe9a8;
+        opacity: 0.2;
+        animation: twinkle 3s infinite ease-in-out;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.1;
+          transform: scale(0.6);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.4);
+        }
+      }
+
+      canvas#fx {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        pointer-events: none;
+      }
+      .cursor-glow {
+        position: fixed;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+        background: radial-gradient(
+          circle,
+          rgba(255, 190, 70, 0.28),
+          transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s;
+      }
+
+      main {
+        position: relative;
+        z-index: 2;
+      }
+      section {
+        padding: 70px 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        position: relative;
+      }
+      .mandala {
+        width: min(78vw, 430px);
+        height: min(78vw, 430px);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -52%);
+        opacity: 0.22;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .mandala svg {
+        width: 100%;
+        height: 100%;
+        animation: spin 60s linear infinite;
+      }
+      .mandala .inner {
+        transform-origin: center;
+        animation: spin 35s linear infinite reverse;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .om {
+        font-size: 3rem;
+        animation: float 4s ease-in-out infinite;
+        filter: drop-shadow(0 0 18px var(--gold2));
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-14px);
+        }
+      }
+      h1 {
+        font-size: clamp(2.2rem, 7vw, 5rem);
+        line-height: 1.1;
+        letter-spacing: 1px;
+        color: #ffd75e;
+        filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65))
+          drop-shadow(0 0 22px rgba(255, 160, 50, 0.45));
+        position: relative;
+        z-index: 3;
+      }
+      h1 .ch {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(40px) rotate(8deg) scale(0.6);
+        background: linear-gradient(
+          100deg,
+          #fff1b8,
+          #ffcf5a,
+          #ff9d2e,
+          #ffe28a,
+          #ffcf5a
+        );
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #ffd75e;
+        animation: pop 0.7s forwards cubic-bezier(0.2, 1.4, 0.4, 1),
+          shimmer 5s linear infinite;
+      }
+      @keyframes pop {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes shimmer {
+        to {
+          background-position: 300% 0;
+        }
+      }
+      .sub {
+        font-size: clamp(1.1rem, 3vw, 1.7rem);
+        color: #fff1cf;
+        min-height: 2.2em;
+        font-style: italic;
+        position: relative;
+        z-index: 3;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.8);
+      }
+      .sub::after {
+        content: "|";
+        animation: blink 1s infinite;
+        margin-left: 2px;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .btn {
+        cursor: pointer;
+        border: none;
+        padding: 14px 34px;
+        border-radius: 50px;
+        font: inherit;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #3a0a0e;
+        background: linear-gradient(135deg, #ffe28a, #ff9d2e);
+        box-shadow: 0 8px 30px rgba(255, 157, 46, 0.45);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+      .btn:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 14px 40px rgba(255, 157, 46, 0.7);
+      }
+      .btn:active {
+        transform: scale(0.96);
+      }
+      .btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -80%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.7),
+          transparent
+        );
+        transform: skewX(-25deg);
+        animation: sweep 3s infinite;
+      }
+      @keyframes sweep {
+        to {
+          left: 140%;
+        }
+      }
+      .scroll {
+        position: absolute;
+        bottom: 26px;
+        font-size: 0.9rem;
+        color: #ffd9a0;
+        opacity: 0.8;
+        animation: float 2.5s infinite;
+      }
+
+      h2 {
+        font-size: clamp(1.7rem, 4vw, 2.6rem);
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
+      .lead {
+        color: #f3cf9a;
+        margin-bottom: 34px;
+      }
+
+      /* DIYAS */
+      .diyas {
+        display: flex;
+        gap: clamp(12px, 4vw, 40px);
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .diya {
+        width: 90px;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        transition: transform 0.3s;
+      }
+      .diya:hover {
+        transform: translateY(-6px) scale(1.08);
+      }
+      .flame {
+        width: 26px;
+        height: 46px;
+        margin: 0 auto -6px;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          #fff 0%,
+          #ffe27a 30%,
+          #ff8a1f 65%,
+          transparent 100%
+        );
+        transform: scale(0);
+        transform-origin: 50% 100%;
+        opacity: 0;
+        transition: transform 0.6s cubic-bezier(0.2, 1.6, 0.4, 1), opacity 0.4s;
+        filter: blur(0.4px);
+      }
+      .diya.lit .flame {
+        opacity: 1;
+        transform: scale(1);
+        animation: flick 0.15s infinite alternate;
+      }
+      @keyframes flick {
+        from {
+          transform: scale(1) skewX(-3deg);
+        }
+        to {
+          transform: scale(1.08, 1.15) skewX(4deg);
+        }
+      }
+      .bowl {
+        height: 34px;
+        border-radius: 0 0 60px 60px/0 0 50px 50px;
+        background: linear-gradient(#e0782b, #8a3510);
+        box-shadow: inset 0 5px 8px rgba(255, 220, 150, 0.5);
+      }
+      .diya.lit .bowl {
+        box-shadow: inset 0 5px 8px rgba(255, 220, 150, 0.5),
+          0 0 60px 20px rgba(255, 160, 40, 0.5);
+      }
+      .counter {
+        margin-top: 30px;
+        font-size: 1.2rem;
+        color: var(--gold);
+      }
+      .counter b {
+        font-size: 1.8rem;
+      }
+
+      /* TABS */
+      .tabs {
+        display: inline-flex;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 50px;
+        padding: 6px;
+        margin-bottom: 28px;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 207, 90, 0.25);
+      }
+      .tab {
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: var(--cream);
+        font: inherit;
+        padding: 12px 26px;
+        border-radius: 40px;
+        transition: 0.35s;
+      }
+      .tab.active {
+        background: linear-gradient(135deg, #ffe28a, #ff9d2e);
+        color: #3a0a0e;
+        font-weight: bold;
+        box-shadow: 0 4px 20px rgba(255, 157, 46, 0.5);
+      }
+      .panel {
+        display: none;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 207, 90, 0.25);
+        border-radius: 22px;
+        padding: 34px 28px;
+        max-width: 760px;
+        margin: 0 auto;
+        backdrop-filter: blur(8px);
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+      .panel.show {
+        display: block;
+        animation: slideUp 0.6s ease;
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .panel .big {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* CARDS */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 22px;
+      }
+      .card {
+        perspective: 900px;
+        height: 190px;
+        cursor: pointer;
+      }
+      .card .in {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        transform-style: preserve-3d;
+      }
+      .card.flip .in {
+        transform: rotateY(180deg);
+      }
+      .face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px;
+        border: 1px solid rgba(255, 207, 90, 0.35);
+      }
+      .front {
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.03)
+        );
+        transition: box-shadow 0.3s;
+      }
+      .card:hover .front {
+        box-shadow: 0 0 30px rgba(255, 170, 60, 0.45);
+      }
+      .front span {
+        font-size: 3.2rem;
+        transition: transform 0.4s;
+      }
+      .card:hover .front span {
+        transform: scale(1.25) rotate(-8deg);
+      }
+      .back {
+        transform: rotateY(180deg);
+        background: linear-gradient(160deg, #ff9d2e, #d6336c);
+        color: #fff;
+        font-size: 0.95rem;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      }
+      .blessed {
+        margin-top: 26px;
+        color: var(--gold);
+        min-height: 1.6em;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 80px 20px 100px;
+        text-align: center;
+      }
+      .wish {
+        font-size: clamp(1.6rem, 5vw, 3rem);
+        margin-bottom: 26px;
+        background: linear-gradient(90deg, #ffe28a, #ff6b9d, #ffe28a);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shimmer 5s linear infinite;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <div class="cursor-glow" id="glow"></div>
+    <canvas id="fx"></canvas>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="mandala">
+          <svg
+            viewBox="-200 -200 400 400"
+            id="mandala"
+            fill="none"
+            stroke="#ffcf5a"
+            stroke-width="1.2"
+          ></svg>
+        </div>
+        <div class="om">🪔</div>
+        <h1 id="title"></h1>
+        <p class="sub" id="typed"></p>
+        <button class="btn" id="bless">✨ Send Blessings ✨</button>
+        <div class="scroll">Scroll ↓ &nbsp; (click anywhere for sparkles)</div>
+      </section>
+
+      <!-- DIYAS -->
+      <section class="reveal">
+        <h2>Light the Diyas</h2>
+        <p class="lead">
+          Tap each lamp to light it and invite prosperity & victory.
+        </p>
+        <div class="diyas" id="diyas"></div>
+        <p class="counter"><b id="count">0</b> / 5 lamps lit</p>
+        <p class="blessed" id="litMsg"></p>
+      </section>
+
+      <!-- FESTIVAL TABS -->
+      <section class="reveal">
+        <h2>The Two Celebrations</h2>
+        <p class="lead">Choose a festival to learn its meaning.</p>
+        <div class="tabs">
+          <button class="tab active" data-t="a">🔧 Ayudha Pooja</button>
+          <button class="tab" data-t="v">🏹 Vijaya Dasami</button>
+        </div>
+        <div class="panel show" id="a">
+          <span class="big">🔧📚🚗</span>
+          Ayudha Pooja is celebrated on Maha Navami, when we honour the tools,
+          instruments, books, vehicles and machines that support our livelihood.
+          We clean them, decorate them with sandal, kumkum and flowers, and
+          offer thanks to Goddess Saraswati and Goddess Durga for knowledge,
+          skill and success.
+        </div>
+        <div class="panel" id="v">
+          <span class="big">🏹🌟🦁</span>
+          Vijaya Dasami, the "tenth day of victory", marks the triumph of good
+          over evil: Goddess Durga's victory over Mahishasura and Lord Rama's
+          victory over Ravana. It is considered a highly auspicious day to begin
+          new learning, new ventures and new journeys, including Vidyarambham
+          for little ones.
+        </div>
+      </section>
+
+      <!-- CARDS -->
+      <section class="reveal">
+        <h2>Bless Your Tools</h2>
+        <p class="lead">Flip each card to receive a blessing.</p>
+        <div class="grid" id="cards"></div>
+        <p class="blessed" id="cardMsg"></p>
+      </section>
+
+      <footer class="reveal">
+        <div class="wish">
+          Happy Ayudha Pooja<br />& Vijaya Dasami to all! 🌼
+        </div>
+        <button class="btn" id="bless2">🎆 Celebrate Again 🎆</button>
+        <p style="margin-top: 30px; color: #f3cf9a">
+          May your work be blessed, your efforts rewarded and every day bring
+          victory.
+        </p>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        /* ---------- stars ---------- */
+        const st = document.getElementById("stars");
+        for (let i = 0; i < 90; i++) {
+          const s = document.createElement("i");
+          s.style.left = Math.random() * 100 + "%";
+          s.style.top = Math.random() * 100 + "%";
+          s.style.animationDelay = Math.random() * 3 + "s";
+          s.style.animationDuration = 2 + Math.random() * 3 + "s";
+          st.appendChild(s);
+        }
+
+        /* ---------- mandala ---------- */
+        const m = document.getElementById("mandala");
+        let svg = "";
+        for (let r of [190, 170, 150])
+          svg += `<circle r="${r}" stroke-dasharray="${
+            r === 170 ? "3 8" : "0"
+          }"/>`;
+        for (let i = 0; i < 24; i++) {
+          svg += `<g transform="rotate(${
+            i * 15
+          })"><path d="M0 -150 C 18 -120, 18 -90, 0 -60 C -18 -90, -18 -120, 0 -150Z"/><path d="M0 -190 L6 -172 L-6 -172Z" fill="#ffcf5a"/></g>`;
+        }
+        svg += '<g class="inner">';
+        for (let i = 0; i < 12; i++)
+          svg += `<g transform="rotate(${
+            i * 30
+          })"><path d="M0 -105 C 28 -80, 28 -40, 0 -15 C -28 -40, -28 -80, 0 -105Z" stroke="#ff9d2e"/></g>`;
+        svg += '<circle r="14" fill="#ff9d2e" stroke="none"/></g>';
+        m.innerHTML = svg;
+
+        /* ---------- animated title ---------- */
+        const title = document.getElementById("title");
+        const words = ["Happy Ayudha Pooja", "&", "Vijaya Dasami"];
+        let d = 0;
+        words.forEach((w, wi) => {
+          const line = document.createElement("div");
+          [...w.replace("&amp;", "&")].forEach((c) => {
+            const sp = document.createElement("span");
+            sp.className = "ch";
+            sp.textContent = c === " " ? "\u00A0" : c;
+            sp.style.animationDelay = d++ * 0.06 + 0.3 + "s";
+            line.appendChild(sp);
+          });
+          if (wi === 1) line.style.fontSize = ".6em";
+          title.appendChild(line);
+        });
+
+        /* ---------- typing line ---------- */
+        const typed = document.getElementById("typed");
+        const msg = "Happy Ayudha Pooja and Vijaya Dasami to all!";
+        let ti = 0;
+        setTimeout(function type() {
+          typed.textContent = msg.slice(0, ++ti);
+          if (ti < msg.length) setTimeout(type, 60);
+        }, 2200);
+
+        /* ---------- cursor glow ---------- */
+        const glow = document.getElementById("glow");
+        addEventListener("mousemove", (e) => {
+          glow.style.left = e.clientX + "px";
+          glow.style.top = e.clientY + "px";
+        });
+
+        /* ---------- canvas fx: fireworks, sparkles, petals ---------- */
+        const cv = document.getElementById("fx"),
+          cx = cv.getContext("2d");
+        let W, H;
+        function size() {
+          W = cv.width = innerWidth;
+          H = cv.height = innerHeight;
+        }
+        size();
+        addEventListener("resize", size);
+        const parts = [],
+          petals = [];
+        const colors = [
+          "#ffe28a",
+          "#ff9d2e",
+          "#ff6b9d",
+          "#fff",
+          "#ffb703",
+          "#fb5607",
+          "#ff006e",
+        ];
+        function burst(x, y, n = 70) {
+          for (let i = 0; i < n; i++) {
+            const a = Math.random() * Math.PI * 2,
+              sp = 1 + Math.random() * 6;
+            parts.push({
+              x,
+              y,
+              vx: Math.cos(a) * sp,
+              vy: Math.sin(a) * sp,
+              life: 1,
+              decay: 0.008 + Math.random() * 0.015,
+              c: colors[(Math.random() * colors.length) | 0],
+              r: 1.5 + Math.random() * 2.5,
+            });
+          }
+        }
+        function shower(count = 60) {
+          for (let i = 0; i < count; i++)
+            petals.push({
+              x: Math.random() * W,
+              y: -20 - Math.random() * H * 0.6,
+              vy: 1 + Math.random() * 2,
+              sw: Math.random() * Math.PI * 2,
+              sp: 0.02 + Math.random() * 0.03,
+              s: 6 + Math.random() * 8,
+              rot: Math.random() * 6,
+              c: Math.random() < 0.7 ? "#ff9d2e" : "#ffcf5a",
+            });
+        }
+        function frame() {
+          cx.clearRect(0, 0, W, H);
+          for (let i = parts.length - 1; i >= 0; i--) {
+            const p = parts[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.05;
+            p.vx *= 0.985;
+            p.life -= p.decay;
+            if (p.life <= 0) {
+              parts.splice(i, 1);
+              continue;
+            }
+            cx.globalAlpha = p.life;
+            cx.fillStyle = p.c;
+            cx.shadowColor = p.c;
+            cx.shadowBlur = 10;
+            cx.beginPath();
+            cx.arc(p.x, p.y, p.r, 0, 6.3);
+            cx.fill();
+          }
+          cx.shadowBlur = 0;
+          for (let i = petals.length - 1; i >= 0; i--) {
+            const p = petals[i];
+            p.y += p.vy;
+            p.sw += p.sp;
+            p.x += Math.sin(p.sw) * 1.2;
+            p.rot += 0.03;
+            if (p.y > H + 30) {
+              petals.splice(i, 1);
+              continue;
+            }
+            cx.globalAlpha = 0.85;
+            cx.fillStyle = p.c;
+            cx.save();
+            cx.translate(p.x, p.y);
+            cx.rotate(p.rot);
+            cx.beginPath();
+            cx.ellipse(0, 0, p.s, p.s / 2.2, 0, 0, 6.3);
+            cx.fill();
+            cx.restore();
+          }
+          cx.globalAlpha = 1;
+          requestAnimationFrame(frame);
+        }
+        frame();
+        addEventListener("click", (e) => burst(e.clientX, e.clientY, 40));
+
+        function celebrate() {
+          shower(80);
+          for (let i = 0; i < 7; i++)
+            setTimeout(
+              () =>
+                burst(
+                  80 + Math.random() * (W - 160),
+                  60 + Math.random() * H * 0.5,
+                  90
+                ),
+              i * 280
+            );
+        }
+        document.getElementById("bless").addEventListener("click", (e) => {
+          e.stopPropagation();
+          celebrate();
+        });
+        document.getElementById("bless2").addEventListener("click", (e) => {
+          e.stopPropagation();
+          celebrate();
+        });
+        setTimeout(() => {
+          shower(35);
+          burst(W / 2, H / 3, 100);
+        }, 1200);
+
+        /* ---------- diyas ---------- */
+        const dwrap = document.getElementById("diyas"),
+          cnt = document.getElementById("count"),
+          lm = document.getElementById("litMsg");
+        let lit = 0;
+        for (let i = 0; i < 5; i++) {
+          const d = document.createElement("div");
+          d.className = "diya";
+          d.innerHTML = '<div class="flame"></div><div class="bowl"></div>';
+          d.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (!d.classList.contains("lit")) {
+              d.classList.add("lit");
+              lit++;
+            } else {
+              d.classList.remove("lit");
+              lit--;
+            }
+            cnt.textContent = lit;
+            const r = d.getBoundingClientRect();
+            burst(r.left + r.width / 2, r.top, 30);
+            if (lit === 5) {
+              lm.textContent =
+                "🌟 All lamps lit! May your life shine with success and joy. 🌟";
+              celebrate();
+            } else lm.textContent = "";
+          });
+          dwrap.appendChild(d);
+        }
+
+        /* ---------- tabs ---------- */
+        document.querySelectorAll(".tab").forEach((t) =>
+          t.addEventListener("click", (e) => {
+            document
+              .querySelectorAll(".tab")
+              .forEach((x) => x.classList.remove("active"));
+            document
+              .querySelectorAll(".panel")
+              .forEach((x) => x.classList.remove("show"));
+            t.classList.add("active");
+            document.getElementById(t.dataset.t).classList.add("show");
+          })
+        );
+
+        /* ---------- flip cards ---------- */
+        const items = [
+          ["📚", "Books", "May knowledge and wisdom always guide you."],
+          ["🔧", "Tools", "May your skills grow sharper every day."],
+          ["🚗", "Vehicles", "May every journey be safe and joyful."],
+          ["🎻", "Instruments", "May your life be filled with harmony."],
+          ["💻", "Computers", "May ideas flow and projects succeed."],
+          ["🖊️", "Pens", "May your words create a bright future."],
+        ];
+        const grid = document.getElementById("cards"),
+          cm = document.getElementById("cardMsg");
+        const flipped = new Set();
+        items.forEach(([ic, nm, bl]) => {
+          const c = document.createElement("div");
+          c.className = "card";
+          c.innerHTML = `<div class="in"><div class="face front"><span>${ic}</span><strong>${nm}</strong></div><div class="face back">${bl}</div></div>`;
+          c.addEventListener("click", (e) => {
+            e.stopPropagation();
+            c.classList.toggle("flip");
+            if (c.classList.contains("flip")) {
+              flipped.add(nm);
+              const r = c.getBoundingClientRect();
+              burst(r.left + r.width / 2, r.top + r.height / 2, 45);
+            }
+            cm.textContent =
+              flipped.size === items.length
+                ? "🙏 All blessings received. Happy Ayudha Pooja!"
+                : flipped.size + " of " + items.length + " blessings received";
+          });
+          grid.appendChild(c);
+        });
+
+        /* ---------- scroll reveal ---------- */
+        const io = new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (e.isIntersecting) e.target.classList.add("in");
+            }),
+          { threshold: 0.2 }
+        );
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>
